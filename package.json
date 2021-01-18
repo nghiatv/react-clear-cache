@@ -33,8 +33,7 @@
   },
   "dependencies": {
     "minimist": "^1.2.5",
-    "use-persisted-state": "^0.3.0",
-    "uuid": "^3.3.2"
+    "use-persisted-state": "^0.3.0"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
