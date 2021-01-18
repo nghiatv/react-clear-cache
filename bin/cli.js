@@ -5,14 +5,15 @@ const mkdirp = require('mkdirp');
 const getDirName = require('path').dirname;
 const parseArgs = require('minimist');
 const childProcess = require('child_process');
-
-const appVersion = childProcess
-  .execSync('git rev-parse HEAD')
-  .toString()
-  .trim();
+const uuidv4 = require('uuid/v4');
+const appVersion =
+  childProcess
+    .execSync('git rev-parse HEAD')
+    .toString()
+    .trim() || uuidv4();
 
 const jsonData = {
-  version: appVersion,
+  version: appVersion
 };
 
 const jsonContent = JSON.stringify(jsonData);
@@ -23,7 +24,7 @@ const destination = args.destination || './public/meta.json';
 
 const filename = destination.match(/[^\\/]+$/)[0];
 
-writeFile(destination, jsonContent, (err) => {
+writeFile(destination, jsonContent, err => {
   if (err) {
     console.log(`An error occured while writing JSON Object to ${filename}`);
     return console.log(err);
@@ -33,7 +34,7 @@ writeFile(destination, jsonContent, (err) => {
 });
 
 function writeFile(path, contents, cb) {
-  mkdirp(getDirName(path), (err) => {
+  mkdirp(getDirName(path), err => {
     if (err) return cb(err);
     fs.writeFile(path, contents, cb);
   });
